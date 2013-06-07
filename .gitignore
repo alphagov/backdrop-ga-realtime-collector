@@ -1,4 +1,4 @@
-.collector/*
-!.collector/.gitkeep
+config/*
+!config/.gitkeep
 .idea
 *.pyc
