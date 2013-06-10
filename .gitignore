@@ -1,4 +1,6 @@
 config/*
 !config/.gitkeep
+!config/cronjobs
 .idea
+venv
 *.pyc

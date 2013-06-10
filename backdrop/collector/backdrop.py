@@ -1,6 +1,8 @@
 from datetime import datetime
+import json
 from pprint import pprint
 import pytz
+import requests
 
 
 class Backdrop(object):
@@ -24,11 +26,14 @@ class Backdrop(object):
 
         pprint(data)
 
-        # requests.post(
-        #     url=self.location,
-        #     data=data,
-        #     headers=headers
-        # )
+        response = requests.post(
+            url=self.location,
+            data=json.dumps(data),
+            headers=headers
+        )
+
+        print response.text
 
     def _timestamp(self):
-        return self.timezone.localize(datetime.now()).isoformat()
+        return self.timezone.localize(datetime.now().replace(microsecond=0))\
+            .isoformat()

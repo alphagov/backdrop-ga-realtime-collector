@@ -1,4 +1,3 @@
-import json
 from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client.client import flow_from_clientsecrets
