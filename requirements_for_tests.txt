@@ -1,0 +1,4 @@
+-r requirements.txt
+PyHamcrest
+nose
+pep8

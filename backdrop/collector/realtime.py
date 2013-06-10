@@ -8,16 +8,8 @@ from oauth2client.tools import run
 GOOGLE_API_SCOPE = "https://www.googleapis.com/auth/analytics"
 
 
-def get_contents(path_to_file):
-    with open(path_to_file) as file_to_load:
-        contents = file_to_load.read()
-    return contents
-
-
 class Realtime(object):
-    def __init__(self, config_path):
-        config = json.loads(get_contents(config_path))
-
+    def __init__(self, config):
         self._authenticate(config["PATH_TO_CLIENT_SECRET"],
                            config["PATH_TO_STORAGE"])
 
@@ -34,10 +26,8 @@ class Realtime(object):
             http=credentials.authorize(Http())
         )
 
-    def query(self, path_to_query):
-        query = json.loads(get_contents(path_to_query))
+    def query(self, query):
         response = self.service.data().realtime().get(
             **query
         ).execute()
-
-        print response
+        return response["rows"][0][0]
