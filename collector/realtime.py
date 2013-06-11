@@ -3,8 +3,36 @@ from httplib2 import Http
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import run
+from datetime import datetime
+import pytz
+
+from backdrop.collector.write import Bucket
+
 
 GOOGLE_API_SCOPE = "https://www.googleapis.com/auth/analytics"
+
+class Collector(object):
+    def __init__(self, credentials):
+        self._realtime = Realtime(credentials)
+
+    def send_records_for(self, query, to):
+        bucket = Bucket.from_target(query['target'])
+
+        visitor_count = self._realtime.query(query)
+
+        record = self._create_record(visitor_count,
+                                     query['filters'])
+
+        bucket.post(record)
+
+    def _create_record(self, visitor_count, for_url):
+        timestamp = _timestamp()
+        return {
+            "_timestamp": timestamp,
+            "_id": timestamp,
+            "unique_visitors": visitor_count,
+            "for_url": for_url
+        }
 
 
 class Realtime(object):
@@ -30,3 +58,9 @@ class Realtime(object):
             **query
         ).execute()
         return response["rows"][0][0]
+
+
+def _timestamp():
+    timezone = pytz.timezone('Europe/London')
+    timestamp = datetime.now().replace(microsecond=0)
+    return timezone.localize(timestamp).isoformat()
