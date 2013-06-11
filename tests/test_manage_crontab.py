@@ -2,7 +2,6 @@ import os
 import unittest
 import sys
 from hamcrest import *
-from statsd.tests import assert_raises
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'hooks'))
 
