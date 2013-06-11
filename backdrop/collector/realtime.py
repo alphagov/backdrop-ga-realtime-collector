@@ -8,9 +8,9 @@ GOOGLE_API_SCOPE = "https://www.googleapis.com/auth/analytics"
 
 
 class Realtime(object):
-    def __init__(self, config):
-        self._authenticate(config["PATH_TO_CLIENT_SECRET"],
-                           config["PATH_TO_STORAGE"])
+    def __init__(self, credentials):
+        self._authenticate(credentials["CLIENT_SECRETS"],
+                           credentials["STORAGE_PATH"])
 
     def _authenticate(self, client_secrets, storage_path):
         flow = flow_from_clientsecrets(client_secrets, scope=GOOGLE_API_SCOPE)

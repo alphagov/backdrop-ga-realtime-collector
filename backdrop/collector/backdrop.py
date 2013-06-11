@@ -6,9 +6,9 @@ import requests
 
 
 class Backdrop(object):
-    def __init__(self, config):
-        self.token = config["BACKDROP_BEARER_TOKEN"]
-        self.location = config["BACKDROP_LOCATION"]
+    def __init__(self, target):
+        self.token = target['token']
+        self.location = target['url']
         self.timezone = pytz.timezone("Europe/London")
 
     def send_current_user_event(self, visitor_count, for_url):

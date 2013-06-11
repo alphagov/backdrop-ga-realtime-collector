@@ -1,29 +1,32 @@
 import json
+import argparse
 from optparse import OptionParser
 from backdrop.collector.backdrop import Backdrop
 from backdrop.collector.realtime import Realtime
+
 
 def get_contents_as_json(path_to_file):
     with open(path_to_file) as file_to_load:
         contents = file_to_load.read()
     return contents
 
-parser = OptionParser()
-parser.add_option("-q", "--query", dest="query",
-                  help="file containing google analytics query as json")
-parser.add_option("-c", "--config", dest="config",
-                  help="config location (config/config.json by default)")
-(options, args) = parser.parse_args()
+parser = argparse.ArgumentParser(
+    description='Read from the Google Analytics realtime API and send to '
+                'backdrop.')
+parser.add_argument('-q', '--query', dest='query',
+                    help='file containing google analytics query as json')
+parser.add_argument('-c', '--credentials', dest='credentials',
+                    help='Google Analytics credentials',
+                    default='config/credentials.json')
+args = parser.parse_args()
 
-if not options.query:
+if not args.query:
     parser.print_help()
     exit()
 
-config_path = options.config or "config/config.json"
-config = json.loads(get_contents_as_json(config_path))
+credentials = json.loads(get_contents_as_json(args.credentials))
 
-query_path = options.query
-query = json.loads(get_contents_as_json(query_path))
+query = json.loads(get_contents_as_json(args.query))
 
-visitors = Realtime(config).query(query)
-Backdrop(config).send_current_user_event(visitors, query["filters"])
+visitors = Realtime(credentials).query(query['query'])
+Backdrop(query['target']).send_current_user_event(visitors, query['query']["filters"])
