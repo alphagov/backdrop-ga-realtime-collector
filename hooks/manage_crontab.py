@@ -6,7 +6,7 @@ class ParseError(StandardError):
     pass
 
 def generate_crontab(current_tab, job_path, path_to_app, path_to_python):
-    job_template = '{schedule} {python} {app_path}/collector.py ' \
+    job_template = '{schedule} {python} {app_path}/collect.py ' \
                    '-q {app_path}/{query} -c {app_path}/{config} ' \
                    '# {app_name}'
 

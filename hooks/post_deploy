@@ -3,4 +3,4 @@
 export PATH_TO_APP="$(pwd)"
 export PATH_TO_PYTHON="$PATH_TO_APP/venv/bin/python"
 
-crontab -l | python ./hooks/manage-crontab.py | crontab -
+crontab -l | python ./hooks/manage_crontab.py | crontab -
