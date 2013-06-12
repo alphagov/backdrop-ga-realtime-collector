@@ -16,7 +16,7 @@ class Collector(object):
         self._realtime = Realtime(credentials)
 
     def send_records_for(self, query, to):
-        bucket = Bucket.from_target(query['target'])
+        bucket = Bucket(**query['target'])
 
         visitor_count = self._realtime.query(query)
 
