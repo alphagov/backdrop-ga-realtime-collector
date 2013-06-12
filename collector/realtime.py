@@ -11,17 +11,18 @@ from backdrop.collector.write import Bucket
 
 GOOGLE_API_SCOPE = "https://www.googleapis.com/auth/analytics"
 
+
 class Collector(object):
     def __init__(self, credentials):
         self._realtime = Realtime(credentials)
 
     def send_records_for(self, query, to):
-        bucket = Bucket(**query['target'])
+        bucket = Bucket(**to)
 
         visitor_count = self._realtime.query(query)
 
         record = self._create_record(visitor_count,
-                                     query['filters'])
+                                     query.get('filters', ''))
 
         bucket.post(record)
 
