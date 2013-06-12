@@ -1,3 +1,1 @@
-*/2 * * * *,queries/licensing_query.json,config.json
-*/7 * * * *,queries/licensing_query.json,config.json
-*/7 * * * *,queries/licensing_query.json,config.json
+*/2 * * * *,queries/licensing_query.json,config/credentials.json
