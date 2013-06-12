@@ -9,7 +9,7 @@ def _load_json_file(path):
         return json.load(f)
 
 if __name__ == '__main__':
-    args = arguments.parse('Multi source')
+    args = arguments.parse_args('Multi source')
 
     targets = _load_json_file('./config/targets.json')
 

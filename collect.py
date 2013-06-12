@@ -8,7 +8,7 @@ def _load_json_file(path):
         return json.load(f)
 
 if __name__ == '__main__':
-    args = arguments.parse('Google Analytics realtime')
+    args = arguments.parse_args('Google Analytics realtime')
 
     collector = realtime.Collector(args.credentials)
 
