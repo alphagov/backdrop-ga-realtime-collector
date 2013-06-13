@@ -49,8 +49,6 @@ class TestCollector(object):
         assert_raises(TypeError, collector.send_records_for,
                       None, {'foo': 'bar'})
 
-
-
     @patch("collector.realtime.Bucket")
     @patch("collector.realtime.Realtime")
     def test_sending_records_sends_for_url(self, _, Bucket):
