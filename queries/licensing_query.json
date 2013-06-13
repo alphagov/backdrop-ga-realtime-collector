@@ -1,5 +1,9 @@
 {
-    "ids": "ga:56580952",
-    "metrics": "ga:activeVisitors",
-    "filters": "ga:pagePath=~/apply-for-a-licence"
+    "collector": "collector.realtime",
+    "query": {
+        "ids": "ga:56580952",
+        "metrics": "ga:activeVisitors",
+        "filters": "ga:pagePath=~/apply-for-a-licence"
+    },
+    "target": "licensing_realtime"
 }
