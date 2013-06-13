@@ -4,3 +4,4 @@ config/*
 .idea
 venv
 *.pyc
+out
