@@ -1,0 +1,34 @@
+{
+    "pay_legalisation_post_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/pay_legalisation_post_realtime",
+      "token": "pay_legalisation_post_realtime-bearer-token"
+    },
+    "pay_legalisation_drop_off_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/pay_legalisation_drop_off_realtime",
+      "token": "pay_legalisation_drop_off_realtime-bearer-token"
+    },
+    "pay_register_birth_abroad_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/pay_register_birth_abroad_realtime",
+      "token": "pay_register_birth_abroad_realtime-bearer-token"
+    },
+    "pay_register_death_abroad_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/pay_register_death_abroad_realtime",
+      "token": "pay_register_death_abroad_realtime-bearer-token"
+    },
+    "pay_foreign_marriage_certificates_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/pay_foreign_marriage_certificates_realtime",
+      "token": "pay_foreign_marriage_certificates_realtime-bearer-token"
+    },
+    "deposit_foreign_marriage_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/deposit_foreign_marriage_realtime",
+      "token": "deposit_foreign_marriage_realtime-bearer-token"
+    },
+    "govuk_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/govuk_realtime",
+      "token": "govuk_realtime-bearer-token"
+    },
+    "licensing_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/licensing_realtime",
+      "token": "licensing_realtime-bearer-token"
+    }
+}

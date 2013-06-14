@@ -1,6 +1,3 @@
-**Work in progress, expect it not to work**
-===========================================
-
 Backdrop Google Analytics Realtime Collector
 ============================================
 
@@ -10,3 +7,8 @@ keep the code and the fact that we have beta access private for now which is
 why the repo is set to private.
 
 Even so please don't check in any client secrets files etc.
+
+## Set up project
+
+Use https://github.com/alphagov/backdrop-ga-collector README as a guideline
+how to set up this project.

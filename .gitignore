@@ -1,6 +1,8 @@
 config/*
 !config/.gitkeep
 !config/cronjobs
+!config/credentials.json
+!config/targets.json
 .idea
 venv
 *.pyc
