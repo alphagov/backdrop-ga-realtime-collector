@@ -13,7 +13,8 @@ if __name__ == '__main__':
 
     collector = realtime.Collector(args.credentials)
 
-    targets = _load_json_file(dirname(realpath(__file__)) + '/config/targets.json')
+    targets = _load_json_file(dirname(realpath(__file__)) +
+                              '/config/targets.json')
 
     collector.send_records_for(args.query['query'],
                                to=targets.get(args.query['target']))
