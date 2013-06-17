@@ -1,0 +1,9 @@
+{
+    "collector": "collector.realtime",
+    "query": {
+        "ids": "ga:56580952",
+        "metrics": "ga:activeVisitors",
+        "filters": "ga:pagePath=~/pay-legalisation-post"
+    },
+    "target": "pay_legalisation_post_realtime"
+}
