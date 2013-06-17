@@ -54,10 +54,15 @@ class Realtime(object):
             http=credentials.authorize(Http())
         )
 
-    def query(self, query):
-        response = self.service.data().realtime().get(
+    def execute_ga_query(self, query):
+        return self.service.data().realtime().get(
             **query
         ).execute()
+
+    def query(self, query):
+        response = self.execute_ga_query(query)
+        if "rows" not in response:
+            return 0
         return response["rows"][0][0]
 
 

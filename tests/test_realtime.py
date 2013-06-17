@@ -1,6 +1,7 @@
 from mock import Mock, patch, ANY
 from nose.tools import *
-from collector.realtime import Collector
+import collector
+from collector.realtime import Collector, Realtime
 from hamcrest.library.text.stringmatches import matches_regexp
 from hamcrest.library.integration import match_equality
 import re
@@ -65,9 +66,16 @@ class TestCollector(object):
             'for_url': 'myurl',
         })
 
-
 class TestRealtime(object):
     """No tests for Realtime class
     This class just deals with the google analytics client. Testing it would
     require a lot of mocking and would be quite brittle.
     """
+    @patch.object(collector.realtime.Realtime, "_authenticate")
+    @patch.object(collector.realtime.Realtime, "execute_ga_query")
+    def test_should_return_zero_if_no_rows_returned_from_ga(
+            self, execute_ga_query, authenticate):
+        execute_ga_query.return_value = {}
+        realtime = Realtime({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
+        value = realtime.query(None)
+        assert_equal(value, 0)
