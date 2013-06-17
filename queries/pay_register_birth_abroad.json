@@ -1,0 +1,9 @@
+{
+    "collector": "collector.realtime",
+    "query": {
+        "ids": "ga:56580952",
+        "metrics": "ga:activeVisitors",
+        "filters": "ga:pagePath=~/pay-register-birth-abroad"
+    },
+    "target": "pay_register_birth_abroad_realtime"
+}

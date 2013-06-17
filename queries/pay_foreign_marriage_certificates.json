@@ -1,0 +1,9 @@
+{
+    "collector": "collector.realtime",
+    "query": {
+        "ids": "ga:56580952",
+        "metrics": "ga:activeVisitors",
+        "filters": "ga:pagePath=~/pay-foreign-marriage-certificates"
+    },
+    "target": "pay_foreign_marriage_certificates_realtime"
+}
