@@ -66,6 +66,7 @@ class TestCollector(object):
             'for_url': 'myurl',
         })
 
+
 class TestRealtime(object):
     """No tests for Realtime class
     This class just deals with the google analytics client. Testing it would
