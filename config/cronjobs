@@ -1,4 +1,5 @@
 */2 * * * *,queries/deposit_foreign_marriage.json,config/credentials.json
+*/2 * * * *,queries/govuk.json,config/credentials.json
 */2 * * * *,queries/licensing_query.json,config/credentials.json
 */2 * * * *,queries/pay_foreign_marriage_certificates.json,config/credentials.json
 */2 * * * *,queries/pay_legalisation_drop_off.json,config/credentials.json
