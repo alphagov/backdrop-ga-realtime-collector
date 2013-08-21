@@ -6,3 +6,5 @@
 */2 * * * *,queries/pay_legalisation_post.json,config/credentials.json
 */2 * * * *,queries/pay_register_birth_abroad.json,config/credentials.json
 */2 * * * *,queries/pay_register_death_abroad.json,config/credentials.json
+*/2 * * * *,queries/sorn_realtime.json,config/credentials.json
+*/2 * * * *,queries/tax_disc_realtime.json,config/credentials.json
