@@ -1,0 +1,9 @@
+{
+  "collector": "collector.realtime",
+  "query": {
+    "ids": "ga:74313105",
+    "metrics": "ga:activeVisitors",
+    "filters": "ga:pagePath=~/register-sorn-statutory-off-road-notification"
+  },
+  "target": "sorn_realtime"
+}
