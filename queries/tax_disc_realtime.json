@@ -5,5 +5,5 @@
     "metrics": "ga:activeVisitors",
     "filters": "ga:pagePath=~/tax-disc"
   },
-  "target": "sorn_realtime"
+  "target": "tax_disc_realtime"
 }
