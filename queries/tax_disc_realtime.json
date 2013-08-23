@@ -3,7 +3,7 @@
   "query": {
     "ids": "ga:74313105",
     "metrics": "ga:activeVisitors",
-    "filters": "ga:pagePath=~/tax-disc"
+    "filters": "ga:pagePath=~^/tax-disc$"
   },
   "target": "tax_disc_realtime"
 }
