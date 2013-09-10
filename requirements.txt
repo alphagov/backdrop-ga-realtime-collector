@@ -1,4 +1,4 @@
-google-api-python-client==1.0
-requests
-pytz==2013b
+google-api-python-client==1.2
+requests==1.2.3
+pytz==2013d
 -e git+git://github.com/alphagov/backdrop-collector.git@0.0.3#egg=backdrop-collector
