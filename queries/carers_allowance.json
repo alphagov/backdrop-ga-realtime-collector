@@ -1,9 +1,8 @@
 {
     "collector": "collector.realtime",
     "query": {
-        "ids": "ga:75455468",
-        "metrics": "ga:activeVisitors",
-        "filters": "ga:pagePath=~/allowance"
+        "ids": "ga:78169243",
+        "metrics": "ga:activeVisitors"
     },
     "target": "carers_allowance_realtime"
 }
