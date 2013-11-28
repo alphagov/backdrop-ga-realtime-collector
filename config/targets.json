@@ -30,5 +30,9 @@
     "licensing_realtime": {
       "url": "http://write.backdrop.dev.gov.uk/licensing_realtime",
       "token": "licensing_realtime-bearer-token"
+    },
+    "carers_allowance_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/carers_allowance_realtime",
+      "token": "carers_allowance_realtime-bearer-token"
     }
 }
