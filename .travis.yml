@@ -4,4 +4,5 @@ python:
 install:
   - "pip install -r requirements_for_tests.txt --use-mirrors"
 script: nosetests
-
+notifications:
+  email: false
