@@ -8,4 +8,4 @@
 1-59/2 * * * *,queries/pay_register_death_abroad.json,config/credentials.json
 1-59/2 * * * *,queries/sorn_realtime.json,config/credentials.json
 1-59/2 * * * *,queries/tax_disc_realtime.json,config/credentials.json
-1-59/2 * * * *,queries/carers_allowance_realtime.json,config/credentials.json
+1-59/2 * * * *,queries/carers_allowance.json,config/credentials.json
