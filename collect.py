@@ -1,5 +1,7 @@
 import json
+import logging
 from backdrop.collector import arguments
+from backdrop.collector.logging_setup import set_up_logging
 from os.path import realpath, dirname
 from collector import realtime
 
@@ -11,6 +13,8 @@ def _load_json_file(path):
 if __name__ == '__main__':
     args = arguments.parse_args('Google Analytics realtime')
 
+    set_up_logging('ga-realtime', logging.DEBUG)
+
     collector = realtime.Collector(args.credentials)
 
     targets_json_path = '/config/targets.json'
@@ -19,8 +23,8 @@ if __name__ == '__main__':
 
     target = targets.get(args.query['target'])
     if not target:
-        print "ERROR: Entry for `%s` not found in %s" \
-              % (args.query['target'], targets_json_path)
+        logging.error("ERROR: Entry for `%s` not found in %s"
+                      % (args.query['target'], targets_json_path))
         exit(1)
 
     collector.send_records_for(args.query['query'],
