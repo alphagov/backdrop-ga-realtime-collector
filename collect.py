@@ -13,7 +13,8 @@ def _load_json_file(path):
 if __name__ == '__main__':
     args = arguments.parse_args('Google Analytics realtime')
 
-    logfile_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'log')
+    logfile_path = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), 'log')
     set_up_logging('ga-realtime', logging.DEBUG, logfile_path)
 
     collector = realtime.Collector(args.credentials)
