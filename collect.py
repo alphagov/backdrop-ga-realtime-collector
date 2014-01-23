@@ -1,5 +1,7 @@
 import json
 import logging
+import os
+
 from backdrop.collector import arguments
 from backdrop.collector.logging_setup import set_up_logging
 from os.path import realpath, dirname
