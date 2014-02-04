@@ -1,0 +1,9 @@
+{
+  "collector": "collector.realtime",
+  "query": {
+    "ids": "ga:74313105",
+    "metrics": "ga:activeVisitors",
+    "filters": "ga:pagePath=~^/waste-carrier-or-broker-registration$"
+  },
+  "target": "waste_carriers_registration_realtime"
+}
