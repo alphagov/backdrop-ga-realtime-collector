@@ -61,9 +61,13 @@ class Realtime(object):
 
     def query(self, query):
         response = self.execute_ga_query(query)
-        if "rows" not in response:
-            return 0
-        return response["rows"][0][0]
+
+        if "rows" in response:
+            visitor_count = int(response["rows"][0][0])
+        else:
+            visitor_count = 0
+
+        return visitor_count
 
 
 def _timestamp():
