@@ -1,0 +1,8 @@
+{
+    "collector": "collector.realtime",
+    "query": {
+        "ids": "ga:33184303",
+        "metrics": "ga:activeVisitors"
+    },
+    "target": "lasting_power_of_attorney_realtime"
+}
