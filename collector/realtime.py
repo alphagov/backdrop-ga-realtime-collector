@@ -50,7 +50,7 @@ class Realtime(object):
 
         self.service = build(
             serviceName="analytics",
-            version="v3alpha",
+            version="v3",
             http=credentials.authorize(Http())
         )
 
