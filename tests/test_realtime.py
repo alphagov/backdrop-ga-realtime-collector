@@ -1,3 +1,4 @@
+from freezegun import freeze_time
 from mock import Mock, patch, ANY
 from nose.tools import *
 import collector
@@ -20,6 +21,86 @@ def is_timestamp():
 
 
 class TestCollector(object):
+    @freeze_time("2014-01-07 10:20:57", tz_offset=0)
+    @patch("collector.realtime.Bucket")
+    @patch.object(collector.realtime.Realtime, "_authenticate")
+    @patch.object(collector.realtime.Realtime, "execute_ga_query")
+    def test_send_records_for_winter_real_response(self, execute_ga_query, authenticate, Bucket):
+        execute_ga_query.return_value = {
+            u'columnHeaders': [{u'columnType': u'METRIC',
+                                u'dataType': u'INTEGER',
+                                u'name': u'ga:activeVisitors'}],
+            u'id': u'https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:74313105&metrics=ga:activeVisitors',
+            u'kind': u'analytics#realtimeData',
+            u'profileInfo': {u'accountId': u'26179049',
+                             u'internalWebPropertyId': u'50705554',
+                             u'profileId': u'74313105',
+                             u'profileName': u"V. GOV.UK PP 'real-time'",
+                             u'tableId': u'realtime:74313105',
+                             u'webPropertyId': u'UA-26179049-1'},
+            u'query': {u'ids': u'ga:74313105',
+                       u'max-results': 1000,
+                       u'metrics': [u'ga:activeVisitors']},
+            u'rows': [[u'20459']],
+            u'selfLink': u'https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:74313105&metrics=ga:activeVisitors',
+            u'totalResults': 1,
+            u'totalsForAllResults': {u'ga:activeVisitors': u'20459'}}
+        bucket = mock_instance(Bucket)
+
+        collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
+
+        collector.send_records_for({},
+                                   to={"url": 'url', "token": 'token'})
+
+        Bucket.assert_called_with(url='url', token='token')
+
+        bucket.post.assert_called_with({
+            '_timestamp': '2014-01-07T10:20:57+00:00',
+            'for_url': '',
+            'unique_visitors': 20459,
+            '_id': '2014-01-07T10:20:57+00:00'
+        })
+
+    @freeze_time("2014-04-07 10:20:57", tz_offset=0)
+    @patch("collector.realtime.Bucket")
+    @patch.object(collector.realtime.Realtime, "_authenticate")
+    @patch.object(collector.realtime.Realtime, "execute_ga_query")
+    def test_send_records_for_summer_real_response(self, execute_ga_query, authenticate, Bucket):
+        execute_ga_query.return_value = {
+            u'columnHeaders': [{u'columnType': u'METRIC',
+                                u'dataType': u'INTEGER',
+                                u'name': u'ga:activeVisitors'}],
+            u'id': u'https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:74313105&metrics=ga:activeVisitors',
+            u'kind': u'analytics#realtimeData',
+            u'profileInfo': {u'accountId': u'26179049',
+                             u'internalWebPropertyId': u'50705554',
+                             u'profileId': u'74313105',
+                             u'profileName': u"V. GOV.UK PP 'real-time'",
+                             u'tableId': u'realtime:74313105',
+                             u'webPropertyId': u'UA-26179049-1'},
+            u'query': {u'ids': u'ga:74313105',
+                       u'max-results': 1000,
+                       u'metrics': [u'ga:activeVisitors']},
+            u'rows': [[u'20459']],
+            u'selfLink': u'https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:74313105&metrics=ga:activeVisitors',
+            u'totalResults': 1,
+            u'totalsForAllResults': {u'ga:activeVisitors': u'20459'}}
+        bucket = mock_instance(Bucket)
+
+        collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
+
+        collector.send_records_for({},
+                                   to={"url": 'url', "token": 'token'})
+
+        Bucket.assert_called_with(url='url', token='token')
+
+        bucket.post.assert_called_with({
+            '_timestamp': '2014-04-07T11:20:57+01:00',
+            'for_url': '',
+            'unique_visitors': 20459,
+            '_id': '2014-04-07T11:20:57+01:00'
+        })
+
     @patch("collector.realtime.Bucket")
     @patch("collector.realtime.Realtime")
     def test_send_records_for(self, Realtime, Bucket):
@@ -68,6 +149,33 @@ class TestCollector(object):
 
 
 class TestRealtime(object):
+    @patch.object(collector.realtime.Realtime, "_authenticate")
+    @patch.object(collector.realtime.Realtime, "execute_ga_query")
+    def test_valid_ga_response_sends_correct_timestamp_to_backdrop(
+            self, execute_ga_query, authenticate):
+        execute_ga_query.return_value = {
+            u'columnHeaders': [{u'columnType': u'METRIC',
+                                u'dataType': u'INTEGER',
+                                u'name': u'ga:activeVisitors'}],
+            u'id': u'https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:74313105&metrics=ga:activeVisitors',
+            u'kind': u'analytics#realtimeData',
+            u'profileInfo': {u'accountId': u'26179049',
+                             u'internalWebPropertyId': u'50705554',
+                             u'profileId': u'74313105',
+                             u'profileName': u"V. GOV.UK PP 'real-time'",
+                             u'tableId': u'realtime:74313105',
+                             u'webPropertyId': u'UA-26179049-1'},
+            u'query': {u'ids': u'ga:74313105',
+                       u'max-results': 1000,
+                       u'metrics': [u'ga:activeVisitors']},
+            u'rows': [[u'20459']],
+            u'selfLink': u'https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:74313105&metrics=ga:activeVisitors',
+            u'totalResults': 1,
+            u'totalsForAllResults': {u'ga:activeVisitors': u'20459'}}
+        realtime = Realtime({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
+        value = realtime.query(None)
+        assert_equal(value, 20459)
+
     """No tests for Realtime class
     This class just deals with the google analytics client. Testing it would
     require a lot of mocking and would be quite brittle.
