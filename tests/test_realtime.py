@@ -5,6 +5,7 @@ from collector.realtime import Collector, Realtime
 from hamcrest.library.text.stringmatches import matches_regexp
 from hamcrest.library.integration import match_equality
 import re
+import json
 
 TIMESTAMP_PATTERN = re.compile(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\+\d\d')
 
@@ -17,6 +18,11 @@ def mock_instance(cls):
 
 def is_timestamp():
     return match_equality(matches_regexp(TIMESTAMP_PATTERN))
+
+
+def fetch_realtime_response():
+    with open("tests/fixtures/realtime_response.json", "r") as f:
+        return json.loads(f.read())
 
 
 class TestCollector(object):
@@ -68,10 +74,19 @@ class TestCollector(object):
 
 
 class TestRealtime(object):
-    """No tests for Realtime class
+    """No tests for Realtime authentication
     This class just deals with the google analytics client. Testing it would
     require a lot of mocking and would be quite brittle.
     """
+    @patch.object(collector.realtime.Realtime, "_authenticate")
+    @patch.object(collector.realtime.Realtime, "execute_ga_query")
+    def test_valid_ga_response_parses_active_visitors_correctly(
+            self, execute_ga_query, authenticate):
+        execute_ga_query.return_value = fetch_realtime_response()
+        realtime = Realtime({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
+        value = realtime.query(None)
+        assert_equal(value, 20459)
+
     @patch.object(collector.realtime.Realtime, "_authenticate")
     @patch.object(collector.realtime.Realtime, "execute_ga_query")
     def test_should_return_zero_if_no_rows_returned_from_ga(
