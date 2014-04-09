@@ -71,6 +71,6 @@ class Realtime(object):
 
 
 def _timestamp():
-    timezone = pytz.timezone('Europe/London')
-    timestamp = datetime.now().replace(microsecond=0)
-    return timezone.localize(timestamp).isoformat()
+    timezone = pytz.UTC
+    timestamp = datetime.now(timezone).replace(microsecond=0)
+    return timestamp.isoformat()
