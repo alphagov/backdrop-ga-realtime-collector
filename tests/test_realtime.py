@@ -1,3 +1,4 @@
+from freezegun import freeze_time
 from mock import Mock, patch, ANY
 from nose.tools import *
 import collector
@@ -26,6 +27,50 @@ def fetch_realtime_response():
 
 
 class TestCollector(object):
+    @freeze_time("2014-01-07 10:20:57", tz_offset=0)
+    @patch("collector.realtime.Bucket")
+    @patch.object(collector.realtime.Realtime, "_authenticate")
+    @patch.object(collector.realtime.Realtime, "execute_ga_query")
+    def test_send_records_for_winter_real_response(self, execute_ga_query, authenticate, Bucket):
+        execute_ga_query.return_value = fetch_realtime_response()
+        bucket = mock_instance(Bucket)
+
+        collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
+
+        collector.send_records_for({},
+                                   to={"url": 'url', "token": 'token'})
+
+        Bucket.assert_called_with(url='url', token='token')
+
+        bucket.post.assert_called_with({
+            '_timestamp': '2014-01-07T10:20:57+00:00',
+            'for_url': '',
+            'unique_visitors': 20459,
+            '_id': '2014-01-07T10:20:57+00:00'
+        })
+
+    @freeze_time("2014-04-07 10:20:57", tz_offset=0)
+    @patch("collector.realtime.Bucket")
+    @patch.object(collector.realtime.Realtime, "_authenticate")
+    @patch.object(collector.realtime.Realtime, "execute_ga_query")
+    def test_send_records_for_summer_real_response(self, execute_ga_query, authenticate, Bucket):
+        execute_ga_query.return_value = fetch_realtime_response()
+        bucket = mock_instance(Bucket)
+
+        collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
+
+        collector.send_records_for({},
+                                   to={"url": 'url', "token": 'token'})
+
+        Bucket.assert_called_with(url='url', token='token')
+
+        bucket.post.assert_called_with({
+            '_timestamp': '2014-04-07T11:20:57+01:00',
+            'for_url': '',
+            'unique_visitors': 20459,
+            '_id': '2014-04-07T11:20:57+01:00'
+        })
+
     @patch("collector.realtime.Bucket")
     @patch("collector.realtime.Realtime")
     def test_send_records_for(self, Realtime, Bucket):
