@@ -2,7 +2,7 @@ from freezegun import freeze_time
 from mock import Mock, patch, ANY
 from nose.tools import *
 import collector
-from collector.realtime import Collector, Realtime
+from collector.realtime import Collector, Realtime, _timestamp
 from hamcrest.library.text.stringmatches import matches_regexp
 from hamcrest.library.integration import match_equality
 import re
@@ -27,7 +27,6 @@ def fetch_realtime_response():
 
 
 class TestCollector(object):
-    @freeze_time("2014-01-07 10:20:57", tz_offset=0)
     @patch("collector.realtime.Bucket")
     @patch.object(collector.realtime.Realtime, "_authenticate")
     @patch.object(collector.realtime.Realtime, "execute_ga_query")
@@ -37,8 +36,10 @@ class TestCollector(object):
 
         collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
 
-        collector.send_records_for({},
-                                   to={"url": 'url', "token": 'token'})
+        #GMT - winter
+        with freeze_time("2014-01-07 10:20:57", tz_offset=0):
+            collector.send_records_for({},
+                                       to={"url": 'url', "token": 'token'})
 
         Bucket.assert_called_with(url='url', token='token')
 
@@ -49,7 +50,6 @@ class TestCollector(object):
             '_id': '2014-01-07T10:20:57+00:00'
         })
 
-    @freeze_time("2014-04-07 10:20:57", tz_offset=0)
     @patch("collector.realtime.Bucket")
     @patch.object(collector.realtime.Realtime, "_authenticate")
     @patch.object(collector.realtime.Realtime, "execute_ga_query")
@@ -59,8 +59,10 @@ class TestCollector(object):
 
         collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
 
-        collector.send_records_for({},
-                                   to={"url": 'url', "token": 'token'})
+        #BST - summer
+        with freeze_time("2014-04-07 10:20:57", tz_offset=0):
+            collector.send_records_for({},
+                                       to={"url": 'url', "token": 'token'})
 
         Bucket.assert_called_with(url='url', token='token')
 
@@ -116,6 +118,23 @@ class TestCollector(object):
             'unique_visitors': ANY,
             'for_url': 'myurl',
         })
+
+
+def test_timestamp_in_summer():
+    #we used to do do the following
+    #def _timestamp():
+        #timezone = pytz.timezone('Europe/London')
+        #timestamp = datetime.now().replace(microsecond=0)
+        #return timezone.localize(timestamp).isoformat()
+    #this would have returned 2014-04-07T10:20:57+01:00
+    #This is not what we want
+    with freeze_time("2014-04-07 10:20:57", tz_offset=0):
+        assert_equal(_timestamp(), "2014-04-07T11:20:57+01:00")
+
+
+def test_timestamp_in_winter():
+    with freeze_time("2014-01-07 10:20:57", tz_offset=0):
+        assert_equal(_timestamp(), "2014-01-07T10:20:57+00:00")
 
 
 class TestRealtime(object):
