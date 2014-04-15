@@ -1,7 +1,7 @@
 {
     "collector": "collector.realtime",
     "query": {
-        "ids": "ga:74313105",
+        "ids": "ga:84779739",
         "metrics": "ga:activeVisitors",
         "filters": "ga:pagePath=~/apply-for-a-licence"
     },
