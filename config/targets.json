@@ -34,5 +34,9 @@
     "carers_allowance_realtime": {
       "url": "http://write.backdrop.dev.gov.uk/carers_allowance_realtime",
       "token": "carers_allowance_realtime-bearer-token"
+    },
+    "view_driving_record_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/view_driving_record_realtime",
+      "token": "view_driving_record_realtime-bearer-token"
     }
 }
