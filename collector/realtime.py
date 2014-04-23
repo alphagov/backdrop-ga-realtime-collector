@@ -6,7 +6,7 @@ from oauth2client.tools import run
 from datetime import datetime
 import pytz
 
-from backdrop.collector.write import Bucket
+from backdrop.collector.write import DataSet
 
 
 GOOGLE_API_SCOPE = "https://www.googleapis.com/auth/analytics"
@@ -17,14 +17,14 @@ class Collector(object):
         self._realtime = Realtime(credentials)
 
     def send_records_for(self, query, to):
-        bucket = Bucket(**to)
+        data_set = DataSet(**to)
 
         visitor_count = self._realtime.query(query)
 
         record = self._create_record(visitor_count,
                                      query.get('filters', ''))
 
-        bucket.post(record)
+        data_set.post(record)
 
     def _create_record(self, visitor_count, for_url):
         timestamp = _timestamp()
