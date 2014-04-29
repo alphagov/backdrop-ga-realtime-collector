@@ -27,12 +27,12 @@ def fetch_realtime_response():
 
 
 class TestCollector(object):
-    @patch("collector.realtime.Bucket")
+    @patch("collector.realtime.DataSet")
     @patch.object(collector.realtime.Realtime, "_authenticate")
     @patch.object(collector.realtime.Realtime, "execute_ga_query")
-    def test_send_records_for_winter_real_response(self, execute_ga_query, authenticate, Bucket):
+    def test_send_records_for_winter_real_response(self, execute_ga_query, authenticate, DataSet):
         execute_ga_query.return_value = fetch_realtime_response()
-        bucket = mock_instance(Bucket)
+        data_set = mock_instance(DataSet)
 
         collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
 
@@ -41,21 +41,21 @@ class TestCollector(object):
             collector.send_records_for({},
                                        to={"url": 'url', "token": 'token'})
 
-        Bucket.assert_called_with(url='url', token='token')
+        DataSet.assert_called_with(url='url', token='token')
 
-        bucket.post.assert_called_with({
+        data_set.post.assert_called_with({
             '_timestamp': '2014-01-07T10:20:57+00:00',
             'for_url': '',
             'unique_visitors': 20459,
             '_id': '2014-01-07T10:20:57+00:00'
         })
 
-    @patch("collector.realtime.Bucket")
+    @patch("collector.realtime.DataSet")
     @patch.object(collector.realtime.Realtime, "_authenticate")
     @patch.object(collector.realtime.Realtime, "execute_ga_query")
-    def test_send_records_for_summer_real_response(self, execute_ga_query, authenticate, Bucket):
+    def test_send_records_for_summer_real_response(self, execute_ga_query, authenticate, DataSet):
         execute_ga_query.return_value = fetch_realtime_response()
-        bucket = mock_instance(Bucket)
+        data_set = mock_instance(DataSet)
 
         collector = Collector({"CLIENT_SECRETS": None, "STORAGE_PATH": None})
 
@@ -64,20 +64,20 @@ class TestCollector(object):
             collector.send_records_for({},
                                        to={"url": 'url', "token": 'token'})
 
-        Bucket.assert_called_with(url='url', token='token')
+        DataSet.assert_called_with(url='url', token='token')
 
-        bucket.post.assert_called_with({
+        data_set.post.assert_called_with({
             '_timestamp': '2014-04-07T10:20:57+00:00',
             'for_url': '',
             'unique_visitors': 20459,
             '_id': '2014-04-07T10:20:57+00:00'
         })
 
-    @patch("collector.realtime.Bucket")
+    @patch("collector.realtime.DataSet")
     @patch("collector.realtime.Realtime")
-    def test_send_records_for(self, Realtime, Bucket):
+    def test_send_records_for(self, Realtime, DataSet):
         realtime = mock_instance(Realtime)
-        bucket = mock_instance(Bucket)
+        data_set = mock_instance(DataSet)
 
         realtime.query.return_value = 12
 
@@ -87,10 +87,10 @@ class TestCollector(object):
                                    to={"url": 'url', "token": 'token'})
 
         Realtime.assert_called_with('credentials')
-        Bucket.assert_called_with(url='url', token='token')
+        DataSet.assert_called_with(url='url', token='token')
 
         realtime.query.assert_called_with({})
-        bucket.post.assert_called_with({
+        data_set.post.assert_called_with({
             '_timestamp': is_timestamp(),
             '_id': is_timestamp(),
             'unique_visitors': 12,
@@ -103,16 +103,16 @@ class TestCollector(object):
         assert_raises(TypeError, collector.send_records_for,
                       None, {'foo': 'bar'})
 
-    @patch("collector.realtime.Bucket")
+    @patch("collector.realtime.DataSet")
     @patch("collector.realtime.Realtime")
-    def test_sending_records_sends_for_url(self, _, Bucket):
-        bucket = mock_instance(Bucket)
+    def test_sending_records_sends_for_url(self, _, DataSet):
+        data_set = mock_instance(DataSet)
 
         collector = Collector(None)
         collector.send_records_for({'filters': 'myurl'},
                                    to={})
 
-        bucket.post.assert_called_with({
+        data_set.post.assert_called_with({
             '_timestamp': ANY,
             '_id': ANY,
             'unique_visitors': ANY,

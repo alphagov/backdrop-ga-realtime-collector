@@ -2,4 +2,4 @@ google-api-python-client==1.2
 requests==1.2.3
 pytz==2013d
 freezegun==0.1.15
--e git+https://github.com/alphagov/backdrop-collector.git@0.0.8#egg=backdrop-collector
+-e git+https://github.com/alphagov/backdrop-collector.git@2.0.0#egg=backdrop-collector
