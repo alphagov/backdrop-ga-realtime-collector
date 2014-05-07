@@ -1,0 +1,8 @@
+{
+    "collector": "collector.realtime",
+    "query": {
+        "ids": "ga:64942391",
+        "metrics": "ga:activeVisitors"
+    },
+    "target": "driving_test_practical_public_realtime"
+}
