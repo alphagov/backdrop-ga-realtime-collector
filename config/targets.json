@@ -38,5 +38,9 @@
     "view_driving_record_realtime": {
       "url": "http://write.backdrop.dev.gov.uk/view_driving_record_realtime",
       "token": "view_driving_record_realtime-bearer-token"
+    },
+    "bis_payment_of_patent_renewal_fee_f12_realtime": {
+      "url": "http://write.backdrop.dev.gov.uk/bis_payment_of_patent_renewal_fee_f12_realtime",
+      "token": "bis_payment_of_patent_renewal_fee_f12_realtime-bearer-token"
     }
 }
