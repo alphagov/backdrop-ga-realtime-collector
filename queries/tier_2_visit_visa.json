@@ -1,0 +1,8 @@
+{
+    "collector": "collector.realtime",
+    "query": {
+        "ids": "ga:81779532",
+        "metrics": "ga:activeVisitors"
+    },
+    "target": "tier_2_visit_visa_realtime"
+}
