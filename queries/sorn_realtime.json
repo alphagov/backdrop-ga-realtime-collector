@@ -3,7 +3,7 @@
   "query": {
     "ids": "ga:84778268",
     "metrics": "ga:activeVisitors",
-    "filters": "ga:pagePath=~^/register-sorn-statutory-off-road-notification$"
+    "filters": "ga:pagePath=~^/make-a-sorn$"
   },
   "target": "sorn_realtime"
 }
